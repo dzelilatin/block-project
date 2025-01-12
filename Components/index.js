@@ -1,4 +1,7 @@
 import Footer from "./Footer";
-import Navbar from "./Navbar";
+import NavBar from "./NavBar";
+import Logo from './Logo';
+import Menu from "./Menu";
 
-export { Footer, Navbar };
+
+export { Footer, NavBar, Logo, Menu };

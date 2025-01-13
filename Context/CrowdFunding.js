@@ -43,31 +43,30 @@ export const CrowdFundingProvider = ({ children }) => {
   };
 
   const getCampaigns = async () => {
-    const provider = new JsonRpcProvider("http://127.0.0.1:8545"); 
+    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
     const contract = fetchContract(provider);
-
+  
     const campaigns = await contract.getCampaigns();
     if (!campaigns || campaigns.length === 0) {
-        console.log("No campaigns found.");
-        return [];
-      }
-
-    // Parse campaigns data
+      console.log("No campaigns found.");
+      return [];
+    }
+  
     const parsedCampaigns = campaigns.map((campaign, i) => ({
       owner: campaign.owner,
       title: campaign.title,
       description: campaign.description,
-      target: utils.formatEther(campaign.target.toString()), 
-      deadline: campaign.deadline.toNumber(),
-      amountCollected: utils.formatEther(campaign.amountCollected.toString()),
+      target: formatEther(campaign.target.toString()),
+      deadline: new Date(campaign.deadline.toNumber() * 1000), // Convert deadline
+      amountCollected: formatEther(campaign.amountCollected.toString()),
       pId: i,
     }));
-
+  
     return parsedCampaigns;
   };
 
   const getUserCampaigns = async () => {
-    const provider = new JsonRpcProvider("http://127.0.0.1:8545"); 
+    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl");
     const contract = fetchContract(provider);
 
     const allCampaigns = await contract.getCampaigns();
@@ -114,7 +113,7 @@ export const CrowdFundingProvider = ({ children }) => {
   };
 
   const getDonations = async (pId) => {
-    const provider = new JsonRpcProvider("http://127.0.0.1:8545"); 
+    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
     const contract = fetchContract(provider);
 
     const donations = await contract.getDonations(pId);

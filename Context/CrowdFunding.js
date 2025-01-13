@@ -163,7 +163,7 @@ export const CrowdFundingProvider = ({ children }) => {
             if (!window.ethereum) return console.log("Install Metamask");
 
         const accounts = await window.ethereum.request({
-            method: "eth_requstAccounts",
+            method: "eth_requestAccounts",
         });
         setCurrentAccount(accounts[0]);
         } catch (error) {

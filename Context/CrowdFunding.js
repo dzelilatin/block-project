@@ -170,7 +170,23 @@ export const CrowdFundingProvider = ({ children }) => {
             console.log("Error occured while connecting to wallet.")
         }
     };
-}
+
+    return (
+        <CrowdFundingContext.Provider
+        value = {{
+            titleData,
+            currentAccount,
+            createCampaign,
+            getCampaigns,
+            donate,
+            getDonations,
+            connectWallet
+        }}
+    >
+         {children}
+    </CrowdFundingContext.Provider>
+    );
+};
 
 
 

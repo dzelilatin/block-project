@@ -61,8 +61,6 @@ const NavBar = () => {
               </li>
             </ul>
           )}
-
-          {/* Mobile Menu */}
           <div className="lg:hidden z-40">
             <button
               aria-label="Open Menu"
@@ -111,7 +109,7 @@ const NavBar = () => {
                       </svg>
                     </button>
                   </div>
-                <div> //myb ovdje?
+                <div> 
                 <nav>
                   <ul className="space-y-4">
                     {menuList.map((el, i) => (

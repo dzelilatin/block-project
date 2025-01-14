@@ -5,6 +5,9 @@ import Menu from "./Menu";
 import Hero from "./Hero";
 import PopUp from "./PopUp";
 import Card from "./Card";
+import ICON from "./ICON";
+import Close from "./Close";
+import Arrow from "./Arrow";
 
 
-export { Footer, NavBar, Hero, Card, PopUp, Logo, Menu };
+export { Footer, NavBar, Hero, Card, PopUp, Logo, Menu, ICON, Close, Arrow };

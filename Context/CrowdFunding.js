@@ -20,28 +20,37 @@ export const CrowdFundingProvider = ({ children }) => {
   const createCampaign = async (campaign) => {
     const { title, description, amount, deadline } = campaign;
     const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new BrowserProvider(connection);
-    const signer = provider.getSigner();
-    const contract = fetchContract(signer);
-
-    console.log(currentAccount);
+    
     try {
+      // Connect to wallet
+      const connection = await web3Modal.connect();
+      const provider = new BrowserProvider(connection);
+      
+      // Get the signer
+      const signer = await provider.getSigner();
+      
+      // Fetch the contract with the signer
+      const contract = fetchContract(signer);
+  
+      console.log(currentAccount);
+      
+      // Call the contract function
       const transaction = await contract.createCampaign(
         currentAccount, // owner
         title,
         description,
         parseUnits(amount, 18), // Updated
-        new Date(deadline).getTime()
+        Math.floor(new Date(deadline).getTime() / 1000) // Deadline in seconds
       );
-
+  
       await transaction.wait();
-
-      console.log("contract call success", transaction);
+  
+      console.log("Contract call success", transaction);
     } catch (error) {
-      console.log("contract call failure", error);
+      console.log("Contract call failure", error);
     }
   };
+  
 
   const getCampaigns = async () => {
     const provider = new JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
@@ -134,22 +143,21 @@ export const CrowdFundingProvider = ({ children }) => {
 
   const checkIfWalletConnected = async () => {
     try {
-      if (!window.ethereum)
-        return console.log("Install Metamask");
-
+      if (!window.ethereum) return console.log("Install Metamask");
+  
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
-
+  
       if (accounts.length) {
-        setCurrentAccount(accounts[0]);
+        setCurrentAccount(accounts[0]); // Correctly set the current account
       } else {
         console.log("No account found.");
       }
     } catch (error) {
-      console.log("Something went wrong while trying to connect to your wallet.");
+      console.log("Error while connecting wallet", error);
     }
-  };
+  };  
 
   useEffect(() => {
     checkIfWalletConnected();
@@ -158,7 +166,7 @@ export const CrowdFundingProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       if (!window.ethereum) return console.log("Install Metamask");
-
+  
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -167,6 +175,7 @@ export const CrowdFundingProvider = ({ children }) => {
       console.log("Error occurred while connecting to wallet.");
     }
   };
+  
 
   return (
     <CrowdFundingContext.Provider

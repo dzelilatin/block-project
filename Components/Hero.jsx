@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hero = ({ titleData, createCampaign }) => {
+const Hero = ({ titleData, createCampaign, currentAccount }) => {
   const [campaign, setCampaign] = useState({
     title: "",
     description: "",
@@ -10,6 +10,12 @@ const Hero = ({ titleData, createCampaign }) => {
 
   const createNewCampaign = async (e) => {
     e.preventDefault();
+  
+    if (!currentAccount) {
+      console.log("Connect your wallet first");
+      return;
+    }
+  
     try {
       const data = await createCampaign(campaign);
     } catch (error) {

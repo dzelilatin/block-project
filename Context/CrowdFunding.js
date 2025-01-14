@@ -4,6 +4,7 @@ import { JsonRpcProvider, BrowserProvider, Contract, parseUnits, parseEther, for
 
 
 
+
 // INTERNAL IMPORT
 import { CrowdFundingABI, CrowdFundingAddress } from "./contants";
 
@@ -43,7 +44,7 @@ export const CrowdFundingProvider = ({ children }) => {
   };
 
   const getCampaigns = async () => {
-    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
+    const provider = new JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
     const contract = fetchContract(provider);
   
     const campaigns = await contract.getCampaigns();
@@ -66,7 +67,7 @@ export const CrowdFundingProvider = ({ children }) => {
   };
 
   const getUserCampaigns = async () => {
-    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl");
+    const provider = new JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl");
     const contract = fetchContract(provider);
 
     const allCampaigns = await contract.getCampaigns();
@@ -113,7 +114,7 @@ export const CrowdFundingProvider = ({ children }) => {
   };
 
   const getDonations = async (pId) => {
-    const provider = new JsonRpcProvider("https://eth-sepolia.alchemyapi.io/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
+    const provider = new JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/scRVbR8zRCengDHOAjBcQdJ2N5DfR2nl"); 
     const contract = fetchContract(provider);
 
     const donations = await contract.getDonations(pId);
